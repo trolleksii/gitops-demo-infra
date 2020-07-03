@@ -40,8 +40,7 @@ jobs:
           icon_emoji: ":concourse:"
           silent: true
           text: |
-            *BUILD TRIGGERED*. *$BUILD_PIPELINE_NAME/$BUILD_JOB_NAME* #($BUILD_NAME).
-            http://concourse.trollab.ca/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
+            *BUILD TRIGGERED*. <http://concourse.trollab.ca/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|Build $BUILD_PIPELINE_NAME/$BUILD_JOB_NAME($BUILD_NAME)>
       - put: app-docker-image
         params:
           build: gitops-demo-app
@@ -71,7 +70,7 @@ jobs:
         icon_emoji: ":concourse:"
         silent: true
         text: |
-          *FAILED*. Build [$BUILD_PIPELINE_NAME/$BUILD_JOB_NAME($BUILD_NAME)](http://concourse.trollab.ca/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME)
+          *FAILED*. <http://concourse.trollab.ca/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|Build $BUILD_PIPELINE_NAME/$BUILD_JOB_NAME($BUILD_NAME)>
     on_success:
       put: slack-alert
       params:
@@ -80,4 +79,4 @@ jobs:
         icon_emoji: ":concourse:"
         silent: true
         text: |
-          *SUCCESS*. Build <http://concourse.trollab.ca/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|$BUILD_PIPELINE_NAME/$BUILD_JOB_NAME($BUILD_NAME)>
+          *SUCCESS*. <http://concourse.trollab.ca/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|Build $BUILD_PIPELINE_NAME/$BUILD_JOB_NAME($BUILD_NAME)>
