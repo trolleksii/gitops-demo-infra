@@ -1,0 +1,84 @@
+resource_types:
+  - name: slack-notification
+    type: docker-image
+    source:
+      repository: cfcommunity/slack-notification-resource
+      tag: v1.3.0
+resources:
+  - name: gitops-demo-app
+    type: git
+    icon: github
+    source:
+      uri: https://github.com/trolleksii/gitops-demo-app
+      branch: dev
+  - name: gitops-demo-infra
+    type: git
+    icon: github
+    source:
+      uri: https://github.com/trolleksii/gitops-demo-infra
+      branch: dev
+  - name: app-docker-image
+    type: docker-image
+    source:
+      repository: trolleksii/gitops-demo-app
+      tag: latest
+      username: ((dockerhub_user))
+      password: ((dockerhub_password))
+  - name: slack-alert
+    type: slack-notification
+    source:
+      url: ((slack_notification_url))
+jobs:
+  - name: build-container
+    plan:
+      - put: slack-alert
+        params:
+          channel: "#random"
+          username: "concourse"
+          icon_emoji: ":concourse:"
+          silent: true
+          text: |
+            *BUILD TRIGGERED*. *$BUILD_PIPELINE_NAME/$BUILD_JOB_NAME* #($BUILD_NAME).
+            http://concourse.trollab.ca/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
+      - get: gitops-demo-app
+        trigger: true
+      - put: app-docker-image
+        params:
+          build: gitops-demo-app
+  - name: deploy-app
+    plan:
+      - get: gitops-demo-infra
+        trigger: true
+      - get: app-docker-image
+        trigger: true
+        passed: [build-container]
+      - task: deploy-code
+        config:
+          platform: linux
+          inputs:
+            - name: app-docker-image
+          image_resource:
+            type: docker-image
+            source: { repository: alpine }
+          run:
+            path: cat
+            args: ["app-docker-image/tag"]
+    on_failure:
+      put: slack-alert
+      params:
+        channel: "#random"
+        username: "concourse"
+        icon_emoji: ":concourse:"
+        silent: true
+        text: |
+          *FAILED*. Build  *$BUILD_PIPELINE_NAME/$BUILD_JOB_NAME* #($BUILD_NAME) has failed.
+          http://concourse.trollab.ca/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME
+    on_success:
+      put: slack-alert
+      params:
+        channel: "#random"
+        username: "concourse"
+        icon_emoji: ":concourse:"
+        silent: true
+        text: |
+          *SUCCESS*. Build ($BUILD_PIPELINE_NAME/$BUILD_JOB_NAME($BUILD_NAME))[http://concourse.trollab.ca/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME]
