@@ -81,4 +81,4 @@ jobs:
         icon_emoji: ":concourse:"
         silent: true
         text: |
-          *SUCCESS*. Build ($BUILD_PIPELINE_NAME/$BUILD_JOB_NAME($BUILD_NAME))[http://concourse.trollab.ca/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME]
+          *SUCCESS*. Build [$BUILD_PIPELINE_NAME/$BUILD_JOB_NAME($BUILD_NAME)](http://concourse.trollab.ca/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME)
