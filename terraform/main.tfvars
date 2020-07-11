@@ -1,3 +1,3 @@
 var = "dfasdfasd"
-app = "1.1.1"
+app = ""
 bar = "asfsdf"
