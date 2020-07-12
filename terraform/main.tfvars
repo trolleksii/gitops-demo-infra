@@ -1,3 +1,3 @@
 var = "dfasdfasd"
-app = "v0.8.1"
+app = "v0.9.0"
 bar = "asfsdf"
