@@ -1,11 +1,13 @@
 steps:
   - name: trolleksii/cloudbuilder-terraform
+    entrypoint: /bin/terraform
     args:
       - init
       - -input=false
       - -no-color
       - ./terraform
   - name: trolleksii/cloudbuilder-terraform
+    entrypoint: /bin/terraform
     args:
       - apply
       - -auto-approve
