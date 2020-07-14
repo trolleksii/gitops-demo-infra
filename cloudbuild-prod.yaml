@@ -4,4 +4,5 @@ steps:
     args:
       - "-c"
       - |
-        echo Deployment to prod will happen here
+        terraform init -input=false -no-color ./terraform
+        terraform plan -input=false -no-color -var-file=main.tfvars ./terraform
