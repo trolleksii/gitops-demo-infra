@@ -1,7 +1,14 @@
 steps:
-  - name: trolleksii/terraform
+  - name: trolleksii/cloudbuilder-terraform
     args:
-      - init -no-color -input=false -var-file=terraform/main.tfvars terraform
-  - name: trolleksii/terraform
+      - init
+      - -input=false
+      - -no-color
+      - ./terraform
+  - name: trolleksii/cloudbuilder-terraform
     args:
-      - plan -no-color -input=false -var-file=terraform/main.tfvars terraform
+      - plan
+      - -no-color
+      - -input=false
+      - -var-file=terraform/main.tfvars
+      - ./terraform

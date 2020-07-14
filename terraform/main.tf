@@ -15,3 +15,7 @@ resource "google_cloud_run_service" "default" {
     latest_revision = true
   }
 }
+
+output "url" {
+  value = "${google_cloud_run_service.default.status}"
+}

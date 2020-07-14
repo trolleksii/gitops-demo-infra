@@ -1,11 +1,11 @@
 steps:
-  - name: trolleksii/terraform
+  - name: trolleksii/cloudbuilder-terraform
     args:
       - init
       - -input=false
       - -no-color
       - ./terraform
-  - name: trolleksii/terraform
+  - name: trolleksii/cloudbuilder-terraform
     args:
       - apply
       - -auto-approve
