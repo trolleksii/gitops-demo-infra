@@ -16,6 +16,6 @@ resource "google_cloud_run_service" "default" {
   }
 }
 
-output "url" {
+output "status" {
   value = "${google_cloud_run_service.default.status}"
 }
