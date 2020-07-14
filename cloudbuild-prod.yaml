@@ -1,5 +1,5 @@
 steps:
-  - name: alpine
+  - name: trolleksii/terraform
     entrypoint: /bin/sh
     args:
       - "-c"
