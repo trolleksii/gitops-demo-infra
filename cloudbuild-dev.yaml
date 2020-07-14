@@ -1,7 +1,15 @@
 steps:
   - name: trolleksii/terraform
     args:
-      - init -input=false -no-color ./terraform
+      - init
+      - -input=false
+      - -no-color
+      - ./terraform
   - name: trolleksii/terraform
     args:
-      - apply -auto-approve -input=false -no-color -var-file=terraform/main.tfvars ./terraform
+      - apply
+      - -auto-approve
+      - -input=false
+      - -no-color
+      - -var-file=terraform/main.tfvars
+      - ./terraform
