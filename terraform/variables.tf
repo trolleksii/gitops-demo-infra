@@ -1,7 +1,26 @@
-variable "resource_prefix" {}
+variable "credentials" {
+  type    = string
+  default = null
+}
 
-variable "app_name" {}
+variable "project_id" {
+  type = string
+}
 
-variable "region" {}
+variable "region" {
+  type    = string
+  default = "us-central1"
+}
 
-variable "subnet_cidr" {}
+variable "app_name" {
+  type = string
+}
+
+variable "image_name" {
+  type = string
+}
+
+variable "image_tag" {
+  type    = string
+  default = "latest"
+}
