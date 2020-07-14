@@ -4,6 +4,7 @@ steps:
     args:
       - -c
       - |
-        terraform init -input=false -no-color ./terraform
-        terraform apply -auto-approve -input=false -no-color -var-file=terraform/main.tfvars ./terraform
+        cd ./terraform
+        terraform init -input=false -no-color
+        terraform apply -auto-approve -input=false -no-color -var-file=main.tfvars
         terraform output -json status | jq -r ".[].url"
