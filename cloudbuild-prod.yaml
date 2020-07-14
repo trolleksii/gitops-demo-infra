@@ -7,4 +7,5 @@ steps:
         cd ./terraform
         terraform init -input=false -no-color
         terraform apply -auto-approve -input=false -no-color -var-file=main.tfvars
-        terraform output -json status | jq -r ".[].url"
+        APP_URL=$(terraform output -json status | jq -r ".[].url")
+        curl -H 'Content-Type: application/json' -d "{\"text\": \"$APP_URL\"}" $_WEBHOOK_URL
