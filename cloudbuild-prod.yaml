@@ -7,4 +7,4 @@ steps:
         cd ./terraform
         terraform init -input=false -no-color
         terraform apply -auto-approve -input=false -no-color -var-file=prod.tfvars
-        curl -H 'Content-Type: application/json' -d "{\"text\": \"The production environment is available at: $(terraform output -json status | jq -r ".[].url")\"}" $_WEBHOOK_URL
+        curl -sH 'Content-Type: application/json' -d "{\"text\": \"Successfull deployment to the [production environment]($(terraform output -json status | jq -r ".[].url"))\"}" $_WEBHOOK_URL
