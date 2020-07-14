@@ -1,17 +1,9 @@
 steps:
   - name: trolleksii/cloudbuilder-terraform
-    entrypoint: /bin/terraform
+    entrypoint: /bin/sh
     args:
-      - init
-      - -input=false
-      - -no-color
-      - ./terraform
-  - name: trolleksii/cloudbuilder-terraform
-    entrypoint: /bin/terraform
-    args:
-      - apply
-      - -auto-approve
-      - -input=false
-      - -no-color
-      - -var-file=terraform/main.tfvars
-      - ./terraform
+      - -c
+      - |
+        terraform init -input=false -no-color ./terraform
+        terraform apply -auto-approve -input=false -no-color -var-file=terraform/main.tfvars ./terraform
+        terraform output -json status | jq -r ".[].url"
