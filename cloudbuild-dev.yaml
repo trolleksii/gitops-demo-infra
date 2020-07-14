@@ -7,6 +7,5 @@ steps:
         cd ./terraform
         terraform init -input=false -no-color
         terraform apply -auto-approve -input=false -no-color -var-file=main.tfvars
-        _APP_URL=$(terraform output -json status | jq -r ".[].url")
-        curl -H 'Content-Type: application/json' -d "{\"text\": \"The preview environment is at: $_APP_URL\"}" $_WEBHOOK_URL
-        curl -H 'Content-Type: application/json' -d "{\"text\": \"Create a PR to propagate to prod: https://github.com/trolleksii/gitops-demo-infra/compare/dev?expand=1\"}" $_WEBHOOK_URL
+        curl -sH 'Content-Type: application/json' -d "{\"text\": \"The preview environment is at: $(terraform output -json status | jq -r ".[].url")\"}" $_WEBHOOK_URL
+        curl -sH 'Content-Type: application/json' -d "{\"text\": \"Create a PR to propagate to prod: https://github.com/trolleksii/gitops-demo-infra/compare/dev?expand=1\"}" $_WEBHOOK_URL
