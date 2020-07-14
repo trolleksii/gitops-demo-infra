@@ -1,8 +1,7 @@
 steps:
   - name: trolleksii/terraform
-    entrypoint: /bin/sh
     args:
-      - "-c"
-      - |
-        terraform init -input=false -no-color ./terraform
-        terraform plan -input=false -no-color -var-file=main.tfvars ./terraform
+      - init -input=false -no-color ./terraform
+  - name: trolleksii/terraform
+    args:
+      - apply -auto-approve -input=false -no-color -var-file=terraform/main.tfvars ./terraform

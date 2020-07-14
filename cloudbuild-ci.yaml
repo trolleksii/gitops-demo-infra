@@ -1,8 +1,7 @@
 steps:
   - name: trolleksii/terraform
-    entrypoint: /bin/sh
     args:
-      - "-c"
-      - |
-        terraform init -no-color -input=false -var-file=terraform/main.tfvars terraform
-        terraform plan -no-color -input=false -var-file=terraform/main.tfvars terraform
+      - init -no-color -input=false -var-file=terraform/main.tfvars terraform
+  - name: trolleksii/terraform
+    args:
+      - plan -no-color -input=false -var-file=terraform/main.tfvars terraform
