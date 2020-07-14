@@ -1,7 +1,8 @@
 steps:
-  - name: alpine
+  - name: trolleksii/terraform
     entrypoint: /bin/sh
     args:
       - "-c"
       - |
-        echo Deployment to dev will happen here
+        terraform init ./terraform
+        terraform plan --var-file=main.tfvars ./terraform

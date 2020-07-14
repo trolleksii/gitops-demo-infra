@@ -1,0 +1,8 @@
+steps:
+  - name: trolleksii/terraform
+    entrypoint: /bin/sh
+    args:
+      - "-c"
+      - |
+        terraform init --no-color --input=false
+        terraform plan
