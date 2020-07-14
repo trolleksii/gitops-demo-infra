@@ -1,7 +1,11 @@
 steps:
-  - name: alpine
+  - name: trolleksii/cloudbuilder-terraform
     entrypoint: /bin/sh
     args:
-      - "-c"
+      - -c
       - |
-        echo Deployment to dev will happen here
+        cd ./terraform
+        terraform init -input=false -no-color
+        terraform apply -auto-approve -input=false -no-color -var-file=main.tfvars
+        curl -sH 'Content-Type: application/json' -d "{\"text\": \"Successfull deployment to the [preview environment]($(terraform output -json status | jq -r ".[].url"))\"}" $_WEBHOOK_URL
+        curl -sH 'Content-Type: application/json' -d "{\"text\": \"Create [a new PR](https://github.com/trolleksii/gitops-demo-infra/compare/dev?expand=1)) to propagate to prod.\"}" $_WEBHOOK_URL
