@@ -6,4 +6,4 @@ steps:
       - |
         cd ./terraform
         terraform init -input=false -no-color
-        terraform plan -input=false -no-color -var-file=main.tfvars
+        terraform plan -input=false -no-color -var-file=main.tfvars -var-file=dev.tfvars
