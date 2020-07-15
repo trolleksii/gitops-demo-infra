@@ -4,6 +4,7 @@ steps:
     args:
       - -c
       - |
+        set -e
         cd ./terraform
         terraform init -input=false -no-color
         terraform workspace select prod || terraform workspace new prod
