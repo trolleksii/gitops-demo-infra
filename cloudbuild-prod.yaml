@@ -6,6 +6,6 @@ steps:
       - |
         cd ./terraform
         terraform init -input=false -no-color
-        terraform workspace select prod || terraform new create prod
+        terraform workspace select prod || terraform workspace new prod
         terraform apply -auto-approve -input=false -no-color -var-file=main.tfvars -var-file=prod.tfvars
         curl -sH 'Content-Type: application/json' -d "{\"text\": \"Successfull deployment to the [production environment]($(terraform output -json status | jq -r ".[].url"))\"}" $_WEBHOOK_URL
